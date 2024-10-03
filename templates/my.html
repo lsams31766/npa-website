@@ -1,0 +1,343 @@
+{% extends "base.html" %}
+{% block title %}My Non-people{% endblock %}
+{% block content %}
+
+
+<div id="AlertDialog"  class="alert alert-danger alert-dismissable fade fixed-top" >
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+   <p id=AlertText>Danger!</p> 
+ </div>
+<div class="alert-box success myalert" id="SuccessDialog">Record updated Successfully!</div>
+
+<dialog id="personDialog">
+    <div class="container-fluid">
+        <div class="label search-box-label">
+            <h1 id="search_header_text" class="title-text mt-3">Enter Name</h1>
+        </div>
+        <div class="search-box">
+            <div class="serach-box-container" id="serachId">
+                <input aria-label="Site Search" tabindex="1" class="top-nav-search-input top-nav-search-input1 ui-autocomplete-input" id="ser_people" type="text" name="ser_people" value="" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+            </div>
+            <div style = "width: 20%; display: block">
+                <div class="btn-group-vertical">
+                    <button tabindex="1" type="button" class="top-nav-search-button my_dialog_button"   name="CloseLookup" id="CloseLookup">Save</button>
+                    <br />
+                    <button tabindex="2" type="button" class="top-nav-search-button my_dialog_button" name="CancelLookup" id="CancelLookup">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+    
+    
+<div class="container-fluid padding-32">
+    <div class="container-fluid padding-1 mt-3 info-text">
+        <table id="nonPeopleTable" class="table info-text display compact cell-border">
+            <thead>
+                <tr>
+                    <th class=noPadding4>UID</th>
+                    <th class=noPadding4>CN</th>
+                    <th class=noPadding4>Source</th>
+                    <th class=noPadding4>Tier</th>
+                    <th class=noPadding4>Owner</th>
+                    <th class=noPadding4>Alt Owner</th>
+                    <th class=noPadding4>Description</th>
+                </tr>
+                <tr id="filterrow">
+                    <th class=noPadding2>UID</th>
+                    <th class=noPadding2>CN</th>
+                    <th class=noPadding2>Source</th>
+                    <th class=noPadding2>Tier</th>
+                    <th class=noPadding2>Owner</th>
+                    <th class=noPadding2>Alt Owner</th>
+                    <th class=noPadding2>Description</th>
+                </tr>
+        </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-11">
+            <h4 class="info-text ml-5">ED = Enterprise Directory</h4>
+        </div>      
+    </div>
+    <div class="row">
+        <div class="col-11">
+            <h4 class="info-text ml-5">AD = Active Directory</h4>
+        </div>
+    </div>     
+</div>
+
+{% endblock %}
+
+
+{% block extra_css %}
+<style>
+    td.editable {
+        cursor: pointer;
+        background-color: #f9f9f9;
+    }
+    td.editable:hover {
+        background-color: #f4f4f4;
+    }
+
+</style>
+{% endblock %}
+{% block extra_js %}
+<script>
+    // For people lookup dialog -------------------------
+    var last_edit_field = "";  // this must be global!        
+//----------------------------------------------------
+
+    $(document).ready(function () {
+        const dialog = document.getElementById("personDialog");
+        var uidSelected = '';
+        var minLookupChars = 3; // set to 99 when we don't want it
+        var blockGroupsAlert = false;
+        // Setup - add a text input to each footer cell
+        $('#nonPeopleTable thead tr#filterrow th').each(function (i) {
+            var title = $('#nonPeopleTable thead th')
+                .eq($(this).index())
+                .text();
+            $(this).html(
+                '<input type="text" style="width:95%;"  placeholder="' + title + '" data-index="' + i + '" />'
+            );
+        });
+
+        var table = $('#nonPeopleTable').DataTable({
+            orderCellsTop: true,
+            "processing": true,
+            "serverSide": true,
+            "dom": "lrtip",
+            "ajax": {
+                "url": "{{url_for('myData')}}",
+                "type": "GET",
+                "dataSrc": "data",
+                "error": function (xhr, error, code) {
+                    console.log(xhr, error, code);
+                }
+            },
+            "columnDefs": [{ width: '65px', targets: [2,3] }],
+            "columns": [
+                { "data": "uid", "responsivePriority": 1 },
+                { "data": "cn", "responsivePriority": 3 },
+                { "data": "source", "responsivePriority": 6 },
+                { "data": "tier", "responsivePriority": 7, "render": function(data, type, row) {
+                    console.log('tier data ',data)
+                    if (data == null) {
+                        return '<div contenteditable="true" spellcheck="false" data-field="tier"> <i class="fa fa-pencil" />' + '</div>';
+                    } else {
+                        return '<div contenteditable="true" spellcheck="false" data-field="tier">' + data + ' <i class="fa fa-pencil" />' + '</div>';
+                    }
+                }},
+                { "data": "manager", "responsivePriority": 2, "render": function(data, type, row) {
+                    return '<div contenteditable="true" spellcheck="false" data-field="manager">' + data + ' <i class="fa fa-pencil" />' + '</div>';
+                }},
+                { "data": "secretary", "responsivePriority": 4, "render": function(data, type, row) {
+                    return '<div contenteditable="true" spellcheck="false" data-field="secretary">' + data + ' <i class="fa fa-pencil" />' + '</div>';
+                }},
+                { "data": "description", "responsivePriority": 5}
+            ],
+            "createdRow": function (row, data, dataIndex) {
+                $(row).find('td:eq(4)').addClass('editable');
+                $(row).find('td:eq(5)').addClass('editable');
+                $(row).find('td:eq(6)').addClass('editable');
+            }
+        });
+    
+        // Apply the filter
+        $("#nonPeopleTable thead input").on('keyup change', function() {
+        table
+            .column($(this).parent().index() + ':visible')
+            .search(this.value)
+            .draw();
+        });
+
+         // Filter event handler
+         $(table.table().container()).on('keyup', 'tfoot input', function () {
+            table
+                .column($(this).data('index'))
+                .search(this.value)
+                .draw();
+        });
+
+        $('#nonPeopleTable').on( 'draw.dt', function(){
+            if (table.data().any() ) {
+                blockGroupsAlert = true;
+                return;
+            }
+            if (blockGroupsAlert == true) {
+                return
+            }
+            // ok show the message
+            s = "You don't own any groups.";
+            showAlert(false, s);
+            $('#nonPeopleTable_processing').hide();
+        });
+        var updating = false;  // Flag to check if update is in progress   
+        var last_edit_row = "";
+
+        $('#nonPeopleTable').on('click', 'div[contenteditable="true"]', function(e) {
+            var cell = $(this);
+            var data = cell.text();
+            // s = 'cell clicked on is ' + data
+            // console.log(s) 
+            // get the column see how to edit it
+            field = cell.data().field
+            last_edit_field = field;
+            let data_row = table.row(e.target.closest('tr')).data();
+            last_edit_row = data_row;
+            // s = 'you clicked on the column with the name ' + field
+            // console.log(s)
+            if (field != 'tier') {
+                // set text values
+                minLookupChars = 3; // type 3 chars to get lookup
+                $('#search_header_text').html('Search for a Person');
+                // clear the text input, hide table
+                $('#ser_people').val('');
+                dialog.showModal()
+            } else {
+                // change the text in the dialog box 
+                minLookupChars = 99; // disable lookup
+                $('#search_header_text').html('Set Tier Value (0, 1, 2 or 3)');
+                $('#ser_people').val('');
+                dialog.showModal()
+            } 
+        });
+
+        $(window).resize(function() {
+            // Redraw the DataTable with recalculating column widths
+            // table.columns.adjust().responsive.recalc().draw();
+        });
+
+        $("#ser_people").autocomplete({
+            minLength: minLookupChars,
+            change: function (event, ui) {
+                    if (last_edit_field != 'tier') {
+                        uidSelected = ui.item.id
+                    }
+                 },
+            source: function( request, response ) {
+            var term = 'samu';
+            // url = "{{url_for('lookupPerson')}}";
+            
+            $.ajax({
+	            contentType: 'application/json',
+	            data: JSON.stringify({
+			        data: {'entered_name':$('#ser_people').val()}
+	            }),
+	            type: "POST",
+	            url: "{{url_for('lookupPerson')}}",
+	            success : function(data)
+                {
+                    console.log(data)
+
+                    let r = data.name_list;
+                    var out_str = "";
+                    out_data = [];
+                    for (let i = 0; i < r.length ; i++) {
+                        out_str = r[i].cn + ' - ' + r[i].bmssite + ' - ' + r[i].bmspersonassociation + '  '
+                        // {"label":"item 1 (cn,site,assoc)", "value":"item 1 (cn)", "id": "uid1"},
+                        e = {"label":out_str, "value":r[i].cn, "id": r[i].bmsuid},
+                        //out_str = r[i].cn;
+                        out_data.push(e)
+                    }
+                    response(out_data)
+                }
+            })
+        }
+        });
+        
+
+        function updateNPAwithUidOrDescription(newValue) {
+            $.ajax({
+                url: "{{url_for('updateNPA')}}",
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    uid: last_edit_row.uid,
+                    source: last_edit_row.source,
+                    field: last_edit_field,
+                    newValue: newValue
+                }),
+                success: function(response) {
+                    //alert("Update successful");
+                    // change alert color red to green as a start
+                    showAlert(true, 'Update successful');
+                    table.ajax.reload(null, false);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Update failed: " + error);
+                    // alert("Update failed. Please try again.");
+                    if (last_edit_field == 'tier') {
+                        s = "Invalid value for tier.  Must be 0, 1, 2 or 3."
+                    }
+                    else {
+                        s = "Could not change owner.  Please try again."
+                    }
+                    showAlert(false, s);
+                    table.ajax.reload(null, false);
+                },
+                complete: function() {
+                    updating = false;  // Reset the flag
+                }
+            });            
+        } 
+
+        function showAlert(success, message) {
+            // success = true means show green dialog with message, no close button, dismiss it
+            // success = false means show red dialog with message and close button 
+            $("#AlertText").text(message)
+                // removed at mgmt request
+                // if (success == true) {
+                // if($('#AlertDialog').hasClass('alert-danger')) {
+                //     $('#AlertDialog').removeClass('alert-danger')
+                //     $('#AlertDialog').addClass('alert-success')
+                // }
+            if (success == false) {
+                if ($('#AlertDialog').hasClass('alert-success')) {
+                        $('#AlertDialog').removeClass('alert-success')
+                        $('#AlertDialog').addClass('alert-danger')
+                }
+                $('#AlertDialog').addClass('show')
+            }
+        }
+
+        // for bootstrap alert failure dialog
+        $("#AlertDialog").on("close.bs.alert", function ()
+        {
+            $("#AlertDialog").removeClass("show");
+            return false;
+        });
+
+
+        $( "#CloseLookup" ).on( "click", () => {
+            console.log('close dialog');
+            dialog.close();
+            nameValue =$('#ser_people').val();
+            // s = 'entered value is ' + nameValue;
+            // console.log(s)
+            if (last_edit_field == 'tier') {
+                // use nameValue to set new description
+                updateNPAwithUidOrDescription(nameValue)
+                return
+            }
+            // need at least 1 letter
+            if (nameValue.length < 1) {
+                return
+            }
+            // return the text which is the cn, the backend will get the uid 
+            updateNPAwithUidOrDescription(uidSelected)
+        });
+
+        $( "#CancelLookup" ).on( "click", () => {
+            console.log('cancel dialog');
+            dialog.close();
+        });
+
+    });
+</script>
+{% endblock %}
