@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+{% block title %}Nonpeople Portal{% endblock %}
+{% block content %}
+
+<div class="header-block text-center text-md-left w-100">
+    <div class="container">
+        <h2 class="header-text header-text-margin-no-left">Non-People Accounts</h2>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="container">     
+        <div class="row">
+            <h3 class="subtitle-text header-text-margin-no-left">Overview</h3>
+        </div>
+        <div class="row">
+            <p>A non-people account, or a service account, is a non-human privileged account that an operating system uses to run applications, automated services, virtual machine instances, and other processes. These accounts can be privileged local or domain accounts; in some cases, they may have domain administrative privileges. They provide a way to assign an identity and permissions to a computer program or process that performs a specialized task.</p>
+        </div>
+        <div class="row mt-2" >
+          <p>This website aims to streamline the process of accessing information on non-people or service accounts, providing a convenient and efficient platform for users to enhance their understanding and make informed decisions in managing these accounts effectively.</p>
+      </div>
+      <div>
+          <ul>
+              <li ><a class="link-class" href="#how-do-i-request-non-people-account">How do I request a non-people account?</a></li>
+              <li><a class="link-class" href="#what-is-a-non-people-account-tier">What is a non-people account Tier?</a</li>
+              <li><a class="link-class" href="#how-do-i-assign-a-tier">How do I assign a Tier to my non-people account?</a</li>
+              <li><a class="link-class" href="#how-do-i-change-the-owner">How do I change the owner of a non-people account?</a</li>
+              <li><a class="link-class" href="#how-do-i-change-the-password">How do I change the password of a non-people account?</a</li>
+              <li><a class="link-class"  href="#how_do-i-register-cyberark">How do I register a non-people account in CyberArk Privileged Access Management?</a></li>
+          </ul>
+      </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <h3 class="subtitle-text header-text-margin-no-left" id="how-do-i-request-non-people-account">How do I request a Non-People Account?</h3>
+        </div>
+        <div class="row">
+            <p>Before requesting a non-people account, assess your information systems integration requirements, including the rights they should have.
+              </p>
+        </div>
+
+        <div class="row">
+            <ul>
+                <li>For Active Directory submit 
+                    <a target="_blank" class="link-class" href="{{ links['4'] }}" >
+                            One Domain Application or Service Account (Active Directory)
+                    </a></li>
+                <li>For Enterprise Directory submit 
+                    <a target="_blank" class="link-class" href="{{ links['5'] }}" >
+                        NonPeople LDAP Account</a>
+                </li>
+                <li>Contact the application owner to create an account in any other system</li>
+            </ul>
+        </div>
+      <div class="row gx-5">
+        <p>Tier 0 and 1 need to be registered into CyberArk.</p>
+    </div>
+</div>
+
+<div class="container-fluid">
+  <div class="container">
+      <div class="row">
+          <h3 class="subtitle-text header-text-margin-no-left" id="what-is-a-non-people-account-tier">What is a Non-People Account Tier?</h3>
+      </div>
+      <div class="row">
+          <p>
+              Account Tier classification defines the risk of the account based on its privileges and scope according to <a target="_blank" class="link-class" href="{{ links['0'] }}">IT-SOP-400</a>/
+            <a target="_blank" class="link-class" href="{{ links['1'] }}">IT-WI-4014</a>
+                Controls for Access Credentials.
+        </p>
+      </div>
+      <div class="row">
+        <p>A non-people account must have one of the below classifications assigned:</p>
+      </div>
+
+      <ul>
+        <li>Tier 0 - Enterprise Privileged: Accounts with root or admin access to all or many systems across the enterprise</li>
+        <li>Tier 1 - Privileged: Accounts with root or admin access to a limited set of applications, servers, databases, or other IT infrastructure that support a SOX application or other application with a specific regulatory requirement</li>
+        <li>Tier 2 - Limited Privileged: Non-SOX application accounts with elevated access to an application, such as workstation administrative access to a single workstation</li>
+        <li>Tier 3 - No Elevated Privilege: Accounts do not have access to privileged systems and data
+        </li>
+      </ul>      
+  </div>
+</div>
+
+<div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <h3 class="subtitle-text header-text-margin-no-left" id="how-do-i-assign-a-tier">How do I assign a Tier to my Non-People account?</h3>
+            </div>
+            <div class="row">
+                <ul>
+                    <li>
+                        For Active Directory and Enterprise Directory go to <a class="link-class" href="{{ url_for('my')}}">Search for my non-people accounts in LDAP</a>
+                        <ol type="1">
+                            <li>Click in the Tier field for the account you want to update</li>
+                            <li>In the dialog, set the Tier to a value of 0, 1, 2 or 3</li>
+                            <li>Click Save</li>
+                        </ol>
+                    </li>
+                    <li>
+                        For CyberArk submit
+                        <a target="_blank" class="link-class" href="{{ links['6'] }}"> General Request 
+                        </a>to APP SUPPORT ACN PRIVILEGED ACCESS MANAGEMENT group
+                    </li>
+                    <li>
+                        Contact the application owner to assign an account Tier in any other system
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--how-do-i-change-the-owner-->
+<div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <h3 class="subtitle-text header-text-margin-no-left link-class" id="how-do-i-change-the-owner">How do I change the owner of a Non-People Account?</h3>
+            </div>
+            <ul>
+                <li>
+                    For Active Directory and Enterprise Directory go to
+                    <a  class="link-class" href="{{ url_for('my')}}">Search for my non-people accounts in LDAP</a>
+                </li>
+                <li>
+                    For CyberArk go to 
+                    <a class="link-class" href="{{ url_for('cyberark')}}">Search for non-people accounts in CyberArk
+                    </a>
+                    <ol type='1'>
+                        <li>
+                            Find Non-People Account 
+                        </li>
+                         <li>
+                            Click on Safe Name to see what groups own the safe
+                        </li>
+                        <li>
+                            Submit 
+                            <a target="_blank" class="link-class" href="{{ links['7'] }}">Access to Active Directory Group
+                            </a> request to be added or deleted from the group
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    Contact the application owner to assign an owner in any other system.
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--how-do-i-change-the-password-->
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <h3 class="subtitle-text header-text-margin-no-left link-class" id="how-do-i-change-the-password">How do I change the password of a Non-People Account?</h3>
+        </div>
+        <ul>
+            <li>
+                For Enterprise Directory go to
+                <a class="link-class" target="_blank" href="https://access.bms.com/dirtools/cgi/npa.py?p">&nbspLDAP Nonpeople Accounts
+                </a>
+            </li>
+            <li>
+                For Active Directory submit
+                <a class="link-class" target="_blank" href="https://bmsnprod.service-now.com/esc?id=sc_cat_item&table=sc_cat_item&sys_id=d1119c88db6f501067e97d84f39619b3">General Request 
+                </a>to ISSA ACTIVE DIRECTORY ENG group
+            </li>
+            <li>
+                For CyberArk fully onboarded accounts, password rotation rules are set by the CyberArk admin in the platform policies for each account. <br /> For example, passwords may be rotated every 90 days. 
+                Please go to
+                <a class="link-class" target="_blank" href="https://bmsnprod.service-now.com/esc?id=kb_article&table=kb_knowledge&sysparm_article=KB3190466">
+                    Access PAM (CyberArk) Training Guide
+                </a>for more information.
+            </li>   
+            <li>
+                Contact the application owner to change the password in any other system.
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container-fluid" >
+    <div class="container">
+        <div class="row">
+            <h3 class="subtitle-text header-text-margin-no-left" id="how_do-i-register-cyberark">How do I register a Non-People Account in CyberArk Privileged Access Management?</h3>
+        </div>
+        <div class="row">
+            <p>Account owners must register a non-people account classified as Tier 0 or Tier 1 in the CyberArk Privileged Access Management (PAM) system.</p>
+        </div>
+        <div class="row">
+          <p>Follow these steps to register a non-people account in the CyberArk.</p>
+            <div class="col-9">
+                <ul>
+                    <li>Submit <a target="_blank" class="link-class" href="{{ links['2'] }}">CyberArk Privileged Access Management (PAM) Safe Creation</a>request</li>
+                    <li>Submit <a target="_blank" class="link-class" href="{{ links['3'] }}">CyberArk Privileged Access Management (PAM) Account Onboarding</a>
+                        request</li>
+                </ul>      
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" >
+        <div class="container">
+            <div class="row">
+                <p>For support, contact the CyberArk PAM team at <a target="_blank" class="link-class" href=mailto:MG-IMSS-PAM-PROD-APP-ADMINS@bms.com>
+                    MG-IMSS-PAM-PROD-APP-ADMINS@bms.com</a></p>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3 d-flex extra-flex">
+                    <div class="link-block flex-fill">
+                        <img src="{{ url_for('static', filename='question.png') }}" alt="Questions">
+                        <h3>How Do I ...</h3>
+                        <ul>
+                            <li><a href="{{ url_for('cyberark')}}">Search for non-people accounts in CyberArk?</a></li>
+                            <li><a href="{{ url_for('all')}}">Search for ALL non-people accounts in LDAP?</a></li>
+                            <li><a href="{{ url_for('my')}}">Search for my non-people accounts in LDAP?</a></li>
+                            <!--Lock this down to only our group-->
+                            {% if showChangeLogLink %}
+                            <li><a href="{{ url_for('changeLog')}}">View the change log?</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            <div class="col-md-6 mb-3 d-flex extra-flex">
+                <div class="link-block flex-fill thirdcolor">
+                    <img src="{{ url_for('static', filename='icon_service.png') }}" alt="Support">
+                    <h3 class="mb-4">IT Support</h3>
+                    <ul>
+                        <li  style="margin-top:0px;">For Active Directory<br />
+                            Configuration Item: ACTIVE DIRECTORY-PROD<br />
+                            Group: ISSA ACTIVE DIRECTORY ENG</li>
+          
+                        <li>For Enterprise Directory<br />
+                            Configuration Item: ENTERPRISE DIRECTORY-PROD<br />
+                            Group: CORE IAM</li>
+       
+                        <li>For CyberArk Privileged Access Management (PAM)<br />
+                            Configuration Item: Privileged Access Management-PROD<br />
+                            Group: APP SUPPORT ACN PRIVILEGED ACCESS MANAGEMENT</li>
+
+                        <li>Contact the application owner for any other system.</li>
+                    </ul>
+                </div>
+            </div>       
+        </div> 
+    </div>                
+  </div>
+     
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+{% endblock %}
