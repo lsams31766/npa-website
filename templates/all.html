@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}All LDAP Non-people Accounts{% endblock %}
+{% block content %}
+
+<div class="container-fluid padding-32">
+    <div class="container-fluid padding-1 mt-3 info-text">
+        <table id="col_filter_test" class="table info-text display compact cell-border">
+            <thead>
+                <tr>
+                    <th class=noPadding4>UID</th>
+                    <th class=noPadding4>CN</th>
+                    <th class=noPadding4>Source</th>
+                    <th class=noPadding4>Tier</th>
+                    <th class=noPadding4>Owner</th>
+                    <th class=noPadding4>Alt Owner</th>
+                    <th class=noPadding4>Description</th>
+                </tr>
+                <tr id="filterrow">
+                    <th class=noPadding2>UID</th>
+                    <th class=noPadding2>CN</th>
+                    <th class=noPadding2>Source</th>
+                    <th class=noPadding2>Tier</th>
+                    <th class=noPadding2>Owner</th>
+                    <th class=noPadding2>Alt Owner</th>
+                    <th class=noPadding2>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-11">
+            <h4 class="info-text ml-5">ED = Enterprise Directory</h4>
+        </div>      
+    </div>
+    <div class="row">
+        <div class="col-11">
+            <h4 class="info-text ml-5">AD = Active Directory</h4>
+        </div>      
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#col_filter_test thead tr#filterrow th').each(function (i) {
+            var title = $('#col_filter_test thead th')
+                .eq($(this).index())
+                .text();
+            $(this).html(
+                '<input type="text" style="width:95%;"  placeholder="' + title + '" data-index="' + i + '" />'
+            );
+        });
+
+        // DataTable
+        var table = $('#col_filter_test').DataTable({
+            orderCellsTop: true,
+            "responsive": false,
+            "processing": true,
+            "serverSide": true,
+            "dom": "lrtip",
+            "ajax": {
+                "url": "{{url_for('colFilterTestData')}}",
+                "type": "GET",
+                "dataSrc": "data",
+                "error": function (xhr, error, code) {
+                    console.log(xhr, error, code);
+                }
+            },
+            "columnDefs": [{ width: '65px', targets: [2,3] }],
+            "columns": [
+                { "data": "uid", "responsivePriority": 4 },
+                { "data": "cn", "responsivePriority": 5 },
+                { "data": "source", "responsivePriority": 6},
+                { "data": "tier", "responsivePriority": 7, 
+                "render" : function ( data, type, row, meta ) {
+                    if (data == "None") {
+                        return '';
+                    } else {
+                        return data;
+                    }
+                }},
+                { "data": "manager", "responsivePriority": 1 },
+                { "data": "secretary", "responsivePriority": 3 },
+                { "data": "description", "responsivePriority": 2 }
+            ]
+        });
+
+        // Apply the filter
+        $("#col_filter_test thead input").on('keyup change', function() {
+        table
+            .column($(this).parent().index() + ':visible')
+            .search(this.value)
+            .draw();
+        });
+
+        $(window).resize(function() {
+            console.log('resized!')
+            table.columns.adjust().responsive.recalc().draw();
+        });
+
+        // Filter event handler
+        $(table.table().container()).on('keyup', 'tfoot input', function () {
+            table
+                .column($(this).data('index'))
+                .search(this.value)
+                .draw();
+        });
+    });
+
+</script>
+{% endblock %}
