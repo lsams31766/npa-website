@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Nonpeople Portal{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{url_for('static', filename='fonts.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='z-bms-new.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='wp_styles_1.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css">
+    <!-- for Font Awesome -->
+    <!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css>
+
+
+
+<body >
+    {% if ( activePage != 'index') %}
+        <div class="header-block text-center text-md-left">
+            <div class="container">
+                <h2 class="header-text header-text-margin-no-left">Non-People Accounts</h2>
+            </div>
+        </div>
+        <div class="container mt-4">
+            <nav aria-label="breadcrumb" class="my-0 mx-0">
+                <ol class="breadcrumb mx-10 my-0" style = "background-color:#fff; padding: 0; 
+                margin: 0;" >
+                    <li class="breadcrumb-item" style="text-decoration: none"><a class="breadcrumb_back"  href="/">Home</a></li>
+                    {%  if ( activePage == 'my' ) %}
+                        <li class="breadcrumb-item" style="text-decoration: none"><a style = "color: #BE2BBB !important;" href="{{ url_for('all')}}">All Non-People Ldap Accounts</a></li>
+                    {% endif %}  
+                    {%  if ( activePage == 'all' ) %}
+                        <li  class="breadcrumb-item" style="text-decoration: none"><a style = "color: #BE2BBB !important;" href="{{ url_for('my')}}">My Non-People Ldap Accounts</a></li>
+                    {% endif %}  
+                </ol>
+            </nav>
+            <h1 class="title-text mt-3">
+                {%  if ( activePage == 'cyberark' ) %}
+                    CyberArk Accounts
+                {% endif %}  
+                {%  if ( activePage == 'all' ) %}
+                    All Non-People Ldap Accounts
+                {% endif %}  
+                {%  if ( activePage == 'my' ) %}
+                    My Non-People Ldap Accounts
+                {% endif %}  
+            </h1>
+        </div>
+    {% endif %}            
+        
+    {% block content %}{% endblock %}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>    
+    {% block extra_js %}{% endblock %}
+</body>
+
+{% block footer %}
+
+
+<div>
+    <hr style = "margin-top: 10px !important;; margin-bottom: 10px !important; margin-left: 0px !important; margin-right: 0px !important">
+</div>
+
+<div class="footer-block text-center text-md-left w-100">
+    <div class="container-fluid padding-32">
+            <img src="{{ url_for('static', filename='bms_logo.png') }}" width="230" alt="BMS Logo">
+    </div>
+</div>        
+
+{% endblock %}
+
+</html>
