@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% block title %}Cyberark{% endblock %}
+{% block content %}
+
+    
+
+    <div class="container-fluid padding-1 mt-3 info-text">
+        <table id="ca_test" class="table info-text display compact cell-border">
+            <thead>
+                <tr>
+                    <th class=noPadding4>Name</th>
+                    <th class=noPadding4>Tier</th>
+                    <th class=noPadding4>Address</th>
+                    <th class=noPadding4>Safe ID</th>
+                    <th class=noPadding4>CI ID</th>
+                    <th class=noPadding4>Safe Name</th>
+                    <th class=noPadding4>File ID</th>
+                    <th class=noPadding4>Database</th>
+                </tr>
+                <tr id="filterrow">
+                    <th class=noPadding2>Name</th>
+                    <th class=noPadding2>Tier</th>
+                    <th class=noPadding2>Address</th>
+                    <th class=noPadding2>Safe ID</th>
+                    <th class=noPadding2>CI ID</th>
+                    <th class=noPadding2>Safe Name</th>
+                    <th class=noPadding2>File ID</th>
+                    <th class=noPadding2>Database</th>
+                 </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <dialog id="safeDetails">
+        <h1 class="title-text mt-3">Safe Details</h1>
+        <p id=my_safe_name >Name: boo</p>
+        <p id=my_safe_owners>Owner: blah</p>
+        <button tabindex="1" type="button" class="top-nav-search-button" name="closeButton" id="closeButton">Close</button>
+    </dialog>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    
+    function getDetails(safe_id, safe_name) {
+        console.log('getDetails!',safe_id, safe_name)
+        const dialog = document.querySelector("dialog");
+        $.ajax({
+                contentType: 'application/json',
+                data: JSON.stringify({
+                        data: {'safe_id':safe_id, 'safe_name': safe_name}
+                    }),
+                type: "POST",
+                url: "{{url_for('get_safe_details')}}",
+                success : function(response)
+                {
+                    let my_safe_name = document.getElementById("my_safe_name");
+                    let my_safe_owners = document.getElementById("my_safe_owners");
+                    my_safe_name.innerHTML = 'Name: ' + response['safe_name']
+                    my_safe_owners.innerHTML = response['owners']
+                    console.log(response)
+                    dialog.showModal()
+                }
+            });
+    }
+
+     function stopPropagation(evt) {
+            if (evt.stopPropagation !== undefined) {
+                evt.stopPropagation();
+            } else {
+                evt.cancelBubble = true;
+            }
+        }
+
+    $(document).ready(function () {
+
+        const dialog = document.querySelector("dialog");
+
+        // "Close" button closes the dialog
+        $( "#closeButton").on( "click", () => {
+            dialog.close();
+        });
+
+        // Setup - add a text input to each footer cell
+        $('#ca_test thead tr#filterrow th').each(function(i) {
+            var title = $('#ca_test thead th')
+                .eq($(this).index())
+                .text();
+            $(this).html(
+                '<input type="text" style="width:95%;"  onclick="stopPropagation(event);" placeholder="' + title + '" data-index="' + i + '" />'
+            );
+        });
+
+
+        // DataTable
+        var table = $('#ca_test').DataTable({
+        orderCellsTop: true,
+        "responsive": false,
+        "processing": true,
+        "serverSide": true,
+        "dom": "lrtip",
+        "ajax": {
+                "url": "{{url_for('caData')}}",
+                "type": "GET",
+                "dataSrc": "data",
+                "error": function (xhr, error, code) {
+                    console.log(xhr, error, code);
+                }
+            },
+            "columnDefs": [
+                { width: '40%', targets: 0 }
+            ],
+            "columns": [
+                { "data": "user_name", "responsivePriority": 8 },
+                { "data": "tier", "responsivePriority": 2, 
+                "render" : function ( data, type, row, meta ) {
+                    if (data == "None"){
+                        return '';
+                    } else {
+                        return data;
+                    }
+                }},
+                { "data": "address", "responsivePriority": 3,
+                "render" : function ( data, type, row, meta ) {
+                    if (data == "None"){
+                        return '';
+                    } else {
+                        return data;
+                    }
+                }},                
+                { "data": "safe_id", visible: false, "responsivePriority": 4 },
+                { "data": "ci_id", "responsivePriority": 5,
+                "render" : function ( data, type, row, meta ) {
+                    if (data == "None"){
+                        return '';
+                    } else {
+                        return data;
+                    }
+                }},                
+                { "data": "safe_name",
+                        "orderable": true,
+                        "searchable": false,
+                        "render": function(data,type,row,meta) { 
+                            
+                            var params = "(" + row.safe_id + ",\'" + row.safe_name + "\')" 
+                            var a = '<a onclick="getDetails' + params +   '" href="javascript:void(0)">' + row.safe_name + '</a>'
+
+                            return a;
+                        }
+                },
+                { "data": "file_id", visible: false, "responsivePriority": 6 },
+                { "data": "db", "responsivePriority": 7,
+                "render" : function ( data, type, row, meta ) {
+                    if (data == "None"){
+                        return '';
+                    } else {
+                        return data;
+                    }
+                }}                
+            ]
+        });
+
+        // Apply the filter
+        $("#ca_test thead input").on('keyup change', function() {
+        table
+            .column($(this).parent().index() + ':visible')
+            .search(this.value)
+            .draw();
+        });
+
+    });
+
+
+</script>
+{% endblock %}
