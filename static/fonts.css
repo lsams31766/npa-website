@@ -1,0 +1,288 @@
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: normal;
+    font-weight: 700;
+    src: local('BMSHumanity Bold'),local('BMSHumanity-Bold'),url('fonts/BMSHumanity-Bold.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: normal;
+    font-weight: 700;
+    src: local('BMSHumanity Bold'),local('BMSHumanity-Bold'),url('fonts/BMSHumanity-Bold.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: italic;
+    font-weight: 700;
+    src: local('BMSHumanity BoldItalic'),local('BMSHumanity-BoldItalic'),url('fonts/BMSHumanity-BoldItalic.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: italic;
+    font-weight: 700;
+    src: local('BMSHumanity BoldItalic'),local('BMSHumanity-BoldItalic'),url('fonts/BMSHumanity-BoldItalic.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: normal;
+    font-weight: 800;
+    src: local('BMSHumanity ExtraBold'),local('BMSHumanity-ExtraBold'),url('fonts/BMSHumanity-ExtraBold.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: normal;
+    font-weight: 800;
+    src: local('BMSHumanity ExtraBold'),local('BMSHumanity-ExtraBold'),url('fonts/BMSHumanity-ExtraBold.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: italic;
+    font-weight: 400;
+    src: local('BMSfonts/Humanity Italic'),local('BMSHumanity-ExtraBold'),url('fonts/BMSHumanity-Italic.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: italic;
+    font-weight: 400;
+    src: local('BMSHumanity Italic'),local('BMSHumanity-ExtraBold'),url('fonts/BMSHumanity-Italic.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: normal;
+    font-weight: 300;
+    src: local('BMSHumanity Light'),local('BMSHumanity-Light'),url('fonts/BMSHumanity-Light.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: normal;
+    font-weight: 300;
+    src: local('BMSHumanity Light'),local('BMSHumanity-Light'),url('fonts/BMSHumanity-Light.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: italic;
+    font-weight: 300;
+    src: local('BMSHumanity LightItalic'),local('BMSHumanity-LightItalic'),url('fonts/BMSHumanity-LightItalic.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: italic;
+    font-weight: 300;
+    src: local('BMSHumanity LightItalic'),local('BMSHumanity-LightItalic'),url('fonts/BMSHumanity-LightItalic.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: normal;
+    font-weight: 400;
+    src: local('BMSHumanity Regular'),local('BMSHumanity-Regular'),url('fonts/BMSHumanity-Regular.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: normal;
+    font-weight: 400;
+    src: local('BMSHumanity Regular'),local('BMSHumanity-Regular'),url('fonts/BMSHumanity-Regular.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: normal;
+    font-weight: 100;
+    src: local('BMSHumanity Thin'),local('BMSHumanity-Thin'),url('fonts/BMSHumanity-Thin.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: normal;
+    font-weight: 100;
+    src: local('BMSHumanity Thin'),local('BMSHumanity-Thin'),url('fonts/BMSHumanity-Thin.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: italic;
+    font-weight: 100;
+    src: local('BMSHumanity ThinItalic'),local('BMSHumanity-ThinItalic'),url('fonts/BMSHumanity-ThinItalic.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanity';
+    font-style: italic;
+    font-weight: 100;
+    src: local('BMSHumanity ThinItalic'),local('BMSHumanity-ThinItalic'),url('fonts/BMSHumanity-ThinItalic.woff2') format('woff2');
+    font-display: auto
+}
+
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: normal;
+    font-weight: 700;
+    src: local('BMSHumanityNw Bold'),local('BMSHumanityNw-Bold'),url('fonts/BMSHumanityNw-Bold.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: normal;
+    font-weight: 700;
+    src: local('BMSHumanityNw Bold'),local('BMSHumanityNw-Bold'),url('fonts/BMSHumanityNw-Bold.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: italic;
+    font-weight: 700;
+    src: local('BMSHumanityNw BoldItalic'),local('BMSHumanityNw-BoldItalic'),url('fonts/BMSHumanityNw-BoldItalic.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: italic;
+    font-weight: 700;
+    src: local('BMSHumanityNw BoldItalic'),local('BMSHumanityNw-BoldItalic'),url('fonts/BMSHumanityNw-BoldItalic.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: normal;
+    font-weight: 800;
+    src: local('BMSHumanityNw ExtraBold'),local('BMSHumanityNw-ExtraBold'),url('fonts/BMSHumanityNw-ExtraBold.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: normal;
+    font-weight: 800;
+    src: local('BMSHumanityNw ExtraBold'),local('BMSHumanityNw-ExtraBold'),url('fonts/BMSHumanityNw-ExtraBold.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: italic;
+    font-weight: 400;
+    src: local('BMSHumanityNw Italic'),local('BMSHumanityNw-ExtraBold'),url('fonts/BMSHumanityNw-Italic.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: italic;
+    font-weight: 400;
+    src: local('BMSHumanityNw Italic'),local('BMSHumanityNw-ExtraBold'),url('fonts/BMSHumanityNw-Italic.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: normal;
+    font-weight: 300;
+    src: local('BMSHumanityNw Light'),local('BMSHumanityNw-Light'),url('fonts/BMSHumanityNw-Light.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: normal;
+    font-weight: 300;
+    src: local('BMSHumanityNw Light'),local('BMSHumanityNw-Light'),url('fonts/BMSHumanityNw-Light.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: italic;
+    font-weight: 300;
+    src: local('BMSHumanityNw LightItalic'),local('BMSHumanityNw-LightItalic'),url('fonts/BMSHumanityNw-LightItalic.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: italic;
+    font-weight: 300;
+    src: local('BMSHumanityNw LightItalic'),local('BMSHumanityNw-LightItalic'),url('fonts/BMSHumanityNw-LightItalic.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: normal;
+    font-weight: 400;
+    src: local('BMSHumanityNw Regular'),local('BMSHumanityNw-Regular'),url('fonts/BMSHumanityNw-Regular.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: normal;
+    font-weight: 400;
+    src: local('BMSHumanityNw Regular'),local('BMSHumanityNw-Regular'),url('fonts/BMSHumanityNw-Regular.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: normal;
+    font-weight: 100;
+    src: local('BMSHumanityNw Thin'),local('BMSHumanityNw-Thin'),url('fonts/BMSHumanityNw-Thin.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: normal;
+    font-weight: 100;
+    src: local('BMSHumanityNw Thin'),local('BMSHumanityNw-Thin'),url('fonts/BMSHumanityNw-Thin.woff2') format('woff2');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: italic;
+    font-weight: 100;
+    src: local('BMSHumanityNw ThinItalic'),local('BMSHumanityNw-ThinItalic'),url('fonts/BMSHumanityNw-ThinItalic.woff') format('woff');
+    font-display: auto
+}
+
+@font-face {
+    font-family: 'BMSHumanityNw';
+    font-style: italic;
+    font-weight: 100;
+    src: local('BMSHumanityNw ThinItalic'),local('BMSHumanityNw-ThinItalic'),url('fonts/BMSHumanityNw-ThinItalic.woff2') format('woff2');
+    font-display: auto
+}
